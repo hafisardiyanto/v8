@@ -83,9 +83,7 @@ class DokumenController extends Controller
             'description' => 'Mengedit data dokumen karyawan dengan nama dokumen ' . $request->
             
             
-        ]);
-        return redirect('/dokumen')->with('success', 'Dokumen Berhasil Diupdate');
-    }
+      
     
     public function delete($id)
     {
