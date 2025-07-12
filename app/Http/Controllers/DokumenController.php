@@ -87,7 +87,7 @@ class DokumenController extends Controller
 nama_dokumen
         ]);
         return redirect('/dokumen')->with('success', 'Dokumen Berhasil Diupdate');
-    }   
+    }                   
     public function delete($id)
     {
         $dokumen = Sip::findOrFail($id);
