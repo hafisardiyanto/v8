@@ -39,8 +39,8 @@
                             <form method="POST" id="myForm" action="{{ url('/login-proses') }}" class="form-horizontal" autocomplete="off">
                                 @csrf
                                 <div class="form-group first">
-                                    <label for="username">Username</label>
-                                    <input id="gmail" type="text"
+                                    <label for="user_id">Username</label>
+                                    <input type="text" id="user_id" name="username"
                                         class="form-control @error('username') is-invalid @enderror" name="username"
                                         value="{{ old('username') }}" autocomplete="username" autofocus>
                                     @error('username')
@@ -50,10 +50,10 @@
                                     @enderror
                                 </div>
                                 <div class="form-group last">
-                                    <label for="password">Password</label>
-                                    <input id="sandi" type="password"
-                                        class="form-control @error('password') is-invalid @enderror" name="password"
-                                        autocomplete="current-password">
+                                    <label for="sandi">Password</label>
+<input id="sandi" type="password"
+    class="form-control @error('password') is-invalid @enderror" name="password"
+    autocomplete="current-password">
                                     @error('password')
                                     <span id="peringatan" class="invalid-feedback" role="alert" style="color:red">
                                         <strong><br><br><br>{{ $message }}</strong>
@@ -93,8 +93,8 @@
         document.getElementById("myForm").addEventListener("submit", function(){
             localStorage.clear();
         });
-        document.getElementById("gmail").autocomplete = "off";
-        document.getElementById("sandi").autocomplete = "off";
+        // document.getElementById("gmail").autocomplete = "off";
+        // document.getElementById("sandi").autocomplete = "off";
     </script>
 </body>
 

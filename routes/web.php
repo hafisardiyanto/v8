@@ -19,6 +19,9 @@ use Carbon\Carbon;
 Route::middleware('auth','log.activity')->group(function () {
     Route::post('/logout', [authController::class, 'logout']);
 
+    //route login
+    
+
     //route hapus histori aktivitas terbaru
     Route::delete('/logs/{id}', [ActivityLogController::class, 'destroy'])->name('logs.destroy');
 
