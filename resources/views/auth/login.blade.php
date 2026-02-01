@@ -26,7 +26,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <img src="assets/img/images.png" alt="Image" class="img-fluid">
+                    <!-- <img src="assets/img/images.png" alt="Image" class="img-fluid"> -->
                 </div>
                 <div class="col-md-6 contents">
                     <div class="row justify-content-center">
