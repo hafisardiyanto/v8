@@ -21,6 +21,30 @@ class DatabaseSeeder extends Seeder
     {
 
         User::create([
+            'name' => 'Superadmin',
+            'foto_karyawan' => '',
+            'email' => 'superadmin@gmail.com',
+            'telepon' => '081234567890',
+            'username' => 'superadmin',
+            'password' => Hash::make('superadmin123'),
+            'tgl_lahir' => date('Y-m-d'),
+            'gender' => 'Laki-Laki',
+            'tgl_join' => date('Y-m-d'),
+            'status_nikah' => 'Menikah',
+            'alamat' => 'alamat superadmin',
+            'cuti_dadakan' => '12',
+            'cuti_bersama' => '5',
+            'cuti_menikah' => '2',
+            'cuti_diluar_tanggungan' => '10',
+            'cuti_khusus' => '8',
+            'cuti_melahirkan' => '6',
+            'izin_telat' => '16',
+            'izin_pulang_cepat' => '9',
+            'is_admin' => 'superadmin',
+            'jabatan_id' => '1'
+        ]);
+
+        User::create([
             'name' => 'Admin',
             'foto_karyawan' => '',
             'email' => 'admin@gmail.com',

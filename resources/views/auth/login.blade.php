@@ -35,6 +35,11 @@
                         
                                 <h3>Sign In</h3>
                                 <p class="mb-4"> Absensi Karyawan    </p>
+                                @if(session()->has('loginError'))
+                                    <div class="alert alert-danger" style="color: red;">
+                                        {{ session('loginError') }}
+                                    </div>
+                                @endif
                             </div>
                             <form method="POST" id="myForm" action="{{ url('/login-proses') }}" class="form-horizontal" autocomplete="off">
                                 @csrf
@@ -60,23 +65,7 @@
                                     </span>
                                     @enderror
                                 </div>
-                                <div class="form-group last mb-4 mt-1">
-                                    {!! captcha_img() !!} 
-                                    <label for="captcha" class="mt-1">Captcha</label>
-                                    <input id="captcha" type="text"
-                                        class="form-control @error('captcha') is-invalid @enderror" name="captcha"
-                                        autocomplete="current-captcha">
-                                    @error('captcha')
-                                    <span id="peringatan" class="invalid-feedback" role="alert" style="color:red">
-                                        <!-- <strong><br><br><br>{{ $message }}</strong> -->
-                                        @if ($message == 'validation.captcha')
-                                            <strong><br>Captcha tidak sesuai</strong>
-                                        @elseif ($message == 'The captcha field is required.')
-                                        <strong><br>Captcha tidak boleh kosong</strong>
-                                        @endif
-                                    </span>
-                                    @enderror
-                                </div>
+                                <!-- Kotak Captcha telah dihapus -->
                                 <button class="btn btn-block btn-primary" type="submit">Login</button>
                             </form>
                         </div>

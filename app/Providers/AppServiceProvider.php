@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Gate::define('admin', function (User $user) {
-            return $user->is_admin === 'admin';
+            return in_array($user->is_admin, ['admin', 'superadmin']);
         });
 
         Gate::define('ricky', function (User $user) {

@@ -40,11 +40,7 @@ class authController extends Controller
 
     public function loginProses(Request $request)
     {
-        $rules = ['captcha' => 'required|captcha'];
-        $validator = validator()->make(request()->all(), $rules);
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator);
-        }
+        // Baris validasi captcha dihapus
                 
         $credentials = $request->validate([
             'username' => 'required',
@@ -56,7 +52,7 @@ class authController extends Controller
         if (Auth::attempt($credentials, $remember_me)) {
             $request->session()->regenerate();
 
-            if(auth()->user()->is_admin == "admin") {
+            if(in_array(auth()->user()->is_admin, ['admin', 'superadmin'])) {
                 return redirect()->intended('/dashboard');
             } else {
                 return redirect()->intended('/absen');
