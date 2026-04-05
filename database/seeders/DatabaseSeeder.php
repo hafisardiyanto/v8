@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'superadmin@gmail.com',
             'telepon' => '081234567890',
             'username' => 'superadmin',
-            'password' => Hash::make('superadmin123'),
+            'password' => Hash::make('admin123'),
             'tgl_lahir' => date('Y-m-d'),
             'gender' => 'Laki-Laki',
             'tgl_join' => date('Y-m-d'),

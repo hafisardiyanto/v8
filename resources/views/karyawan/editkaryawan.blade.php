@@ -201,7 +201,7 @@
                                                 "is_admin" => "admin"
                                             ],
                                             [
-                                                "is_admin" => "user"
+                                                "is_admin" => "karyawan"
                                             ]);
                                             ?>
                                             <label for="is_admin">Level User</label>

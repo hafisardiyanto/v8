@@ -44,11 +44,11 @@
                             <form method="POST" id="myForm" action="{{ url('/login-proses') }}" class="form-horizontal" autocomplete="off">
                                 @csrf
                                 <div class="form-group first">
-                                    <label for="user_id">Username</label>
-                                    <input type="text" id="user_id" name="username"
-                                        class="form-control @error('username') is-invalid @enderror" name="username"
-                                        value="{{ old('username') }}" autocomplete="username" autofocus>
-                                    @error('username')
+                                    <label for="email">Email</label>
+                                    <input type="email" id="email" name="email"
+                                        class="form-control @error('email') is-invalid @enderror" 
+                                        value="{{ old('email') }}" autocomplete="email" autofocus>
+                                    @error('email')
                                     <span id="peringatan" class="invalid-feedback" role="alert" style="color:red">
                                         <strong><br><br><br>{{ $message }}</strong>
                                     </span>

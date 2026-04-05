@@ -43,7 +43,7 @@ class authController extends Controller
         // Baris validasi captcha dihapus
                 
         $credentials = $request->validate([
-            'username' => 'required',
+            'email' => 'required|email',
             'password' => 'required',            
         ]);
         
