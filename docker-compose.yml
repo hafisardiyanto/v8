@@ -1,0 +1,90 @@
+version: '3'
+services:
+
+  # PHP Service
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        user: v8user
+        uid: 1000
+    image: v8-app
+    container_name: v8-app
+    restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: app
+      SERVICE_TAGS: dev
+    volumes:
+      - ./:/var/www
+    networks:
+      - v8-network
+
+  # Nginx Service
+  web:
+    image: nginx:alpine
+    container_name: v8-web
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "8080:80"
+      - "443:443"
+    volumes:
+      - ./:/var/www
+      - ./.docker/nginx/conf.d/:/etc/nginx/conf.d/
+    networks:
+      - v8-network
+
+  # MySQL Service
+  db:
+    image: mysql:8.0
+    container_name: v8-db
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_PASSWORD: root
+      MYSQL_USER: ${DB_USERNAME}
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - v8-dbdata:/var/lib/mysql
+      - ./absensi.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - v8-network
+
+  # Redis Service
+  redis:
+    image: redis:alpine
+    container_name: v8-redis
+    restart: unless-stopped
+    tty: true
+    networks:
+      - v8-network
+
+  # phpMyAdmin Service
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: v8-phpmyadmin
+    restart: unless-stopped
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: root
+    networks:
+      - v8-network
+
+# Docker Networks
+networks:
+  v8-network:
+    driver: bridge
+
+# Volumes
+volumes:
+  v8-dbdata:
+    driver: local
