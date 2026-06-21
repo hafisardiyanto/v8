@@ -1,5 +1,5 @@
-# Use PHP 8.1 FPM
-FROM php:8.1-fpm
+# Use PHP 8.3 FPM
+FROM php:8.3-fpm
 
 # Arguments defined in docker-compose.yml
 ARG user
