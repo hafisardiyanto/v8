@@ -13,6 +13,7 @@ use App\Http\Controllers\jabatanController;
 use App\Http\Controllers\karyawanController;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\RekapDataController;
+use App\Http\Controllers\EventController;
 use Carbon\Carbon;
 
 
@@ -74,6 +75,11 @@ Route::middleware('auth','log.activity')->group(function () {
     Route::get('/my-dokumen/edit/{id}', [DokumenController::class, 'myDokumenEdit']);
     Route::put('/my-dokumen/edit-proses/{id}', [DokumenController::class, 'myDokumenEditProses']);
     Route::delete('/my-dokumen/delete/{id}', [DokumenController::class, 'myDokumenDelete']);
+
+    // Route for Events
+    Route::get('/events', [EventController::class, 'index']);
+    Route::post('/events', [EventController::class, 'store']);
+    Route::delete('/events/{id}', [EventController::class, 'destroy']);
 });
 
     //route register karyawan

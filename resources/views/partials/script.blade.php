@@ -59,7 +59,8 @@
         // create an Event Object (https://fullcalendar.io/docs/event-object)
         // it doesn't need to have a start or end
         var eventObject = {
-          title: $.trim($(this).text()) // use the element's text as the event title
+          title: $.trim($(this).text()), // use the element's text as the event title
+          id: $(this).data('id')
         }
         // store the Event Object in the DOM element so we can get to it later
         $(this).data('eventObject', eventObject)
@@ -73,8 +74,16 @@
         
         // click to delete
         $(this).on('click', function() {
-          if (confirm('Hapus event ini dari daftar?')) {
-            $(this).remove();
+          let target = $(this);
+          let eventId = target.data('id');
+          if (confirm('Hapus event ini secara permanen dari daftar?')) {
+            $.ajax({
+              url: '/events/' + eventId,
+              type: 'DELETE',
+              success: function(result) {
+                target.remove();
+              }
+            });
           }
         });
       })
@@ -192,6 +201,21 @@
         'border-color'    : currColor
       })
     })
+    // Load events on page load
+    $.get('/events', function(data) {
+      data.forEach(function(eventData) {
+        var event = $('<div />')
+        event.css({
+          'background-color': eventData.background_color,
+          'border-color'    : eventData.border_color,
+          'color'           : eventData.text_color
+        }).addClass('external-event').attr('data-id', eventData.id)
+        event.text(eventData.title)
+        $('#external-events').prepend(event)
+        ini_events(event)
+      });
+    });
+
     $('#add-new-event').click(function (e) {
       e.preventDefault()
       // Get value and make sure it is not null
@@ -200,21 +224,29 @@
         return
       }
 
-      // Create events
-      var event = $('<div />')
-      event.css({
-        'background-color': currColor,
-        'border-color'    : currColor,
-        'color'           : '#fff'
-      }).addClass('external-event')
-      event.text(val)
-      $('#external-events').prepend(event)
+      // Save to database via AJAX
+      $.post('/events', {
+        title: val,
+        background_color: currColor,
+        border_color: currColor,
+        text_color: '#fff'
+      }, function(eventData) {
+        // Create events
+        var event = $('<div />')
+        event.css({
+          'background-color': eventData.background_color,
+          'border-color'    : eventData.border_color,
+          'color'           : eventData.text_color
+        }).addClass('external-event').attr('data-id', eventData.id)
+        event.text(eventData.title)
+        $('#external-events').prepend(event)
 
-      // Add draggable funtionality
-      ini_events(event)
+        // Add draggable funtionality
+        ini_events(event)
 
-      // Remove event from text input
-      $('#new-event').val('')
+        // Remove event from text input
+        $('#new-event').val('')
+      });
     })
   })
 </script>
