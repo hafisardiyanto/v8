@@ -71,6 +71,12 @@
           revertDuration: 0  //  original position after the drag
         })
         
+        // click to delete
+        $(this).on('click', function() {
+          if (confirm('Hapus event ini dari daftar?')) {
+            $(this).remove();
+          }
+        });
       })
     }
     
@@ -160,6 +166,11 @@
         if (checkbox.checked) {
           // if so, remove the element from the "Draggable Events" list
           info.draggedEl.parentNode.removeChild(info.draggedEl);
+        }
+      },
+      eventClick: function(info) {
+        if (confirm('Hapus event ini dari kalender?')) {
+          info.event.remove();
         }
       }
     });
