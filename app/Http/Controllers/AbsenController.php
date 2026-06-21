@@ -37,15 +37,17 @@ class AbsenController extends Controller
         }
         $shift_karyawan = MappingShift::where('user_id', $user_login)->where('tanggal', $tanggal)->get();
 
-        // Tambahkan otomatis jika belum ada jadwal shift hari ini (ID 2 = Office)
+        // Tambahkan otomatis jika belum ada jadwal shift hari ini
         if ($shift_karyawan->isEmpty() && $tanggal == $tglskrg) {
-            MappingShift::create([
-                'user_id' => $user_login,
-                'shift_id' => 2, // Default Office sesuai DatabaseSeeder
-                'tanggal' => $tanggal,
-                'status_absen' => 'Tidak Masuk' // Initial status
-            ]);
-            $shift_karyawan = MappingShift::where('user_id', $user_login)->where('tanggal', $tanggal)->get();
+            // Pastikan Shift ID 2 (Office) ada agar tidak error
+            $defaultShift = \App\Models\Shift::find(2);
+            if ($defaultShift) {
+                MappingShift::updateOrCreate(
+                    ['user_id' => $user_login, 'tanggal' => $tanggal],
+                    ['shift_id' => 2, 'status_absen' => 'Tidak Masuk']
+                );
+                $shift_karyawan = MappingShift::where('user_id', $user_login)->where('tanggal', $tanggal)->get();
+            }
         }
 
         return view('absen.index', [
