@@ -26,10 +26,8 @@ services:
     image: nginx:alpine
     container_name: v8-web
     restart: unless-stopped
-    tty: true
     ports:
-      - "8080:80"
-      - "443:443"
+      - "8085:80"
     volumes:
       - ./:/var/www
       - ./.docker/nginx/conf.d/:/etc/nginx/conf.d/
@@ -72,7 +70,7 @@ services:
     container_name: v8-phpmyadmin
     restart: unless-stopped
     ports:
-      - "8081:80"
+      - "8086:84"
     environment:
       PMA_HOST: db
       MYSQL_ROOT_PASSWORD: root
