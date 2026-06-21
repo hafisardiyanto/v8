@@ -11,9 +11,20 @@ class LokasiController extends Controller
 {
     public function index()
     {
+        $lokasi = Lokasi::first();
+        
+        // Tambahkan otomatis jika belum ada data
+        if (!$lokasi) {
+            $lokasi = Lokasi::create([
+                'lat_kantor' => '-6.3707314',
+                'long_kantor' => '106.8138057',
+                'radius' => '200',
+            ]);
+        }
+
         return view('lokasi.index', [
             'title' => 'Setting Lokasi Kantor',
-            'lokasi' => Lokasi::first()
+            'lokasi' => $lokasi
         ]);
     }
 
