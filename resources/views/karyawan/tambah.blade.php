@@ -65,12 +65,19 @@
                         </div>
                         <div class="col">
                             <label for="password">Password</label>
-                            <input type="password" au class="form-control @error('password') is-invalid @enderror" id="password" name="password" value="{{ old('password') }}">
-                            @error('password')
-                            <div class="invalid-feedback">
-                                {{ $message }}
+                            <div class="input-group">
+                                <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" value="{{ old('password') }}">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="button" onclick="togglePassword()">
+                                        <i class="fa fa-eye" id="toggle-icon"></i>
+                                    </button>
+                                </div>
+                                @error('password')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
-                            @enderror
                         </div>
                     </div>
 
