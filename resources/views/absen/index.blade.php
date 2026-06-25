@@ -130,12 +130,12 @@
                             @csrf
                             <div class="form-row">
                                 <div class="col"></div>
-                                <div class="col">
+                                <!-- <div class="col">
                                     <center>
                                         <h2>Absen Masuk: </h2>
                                         <div class="webcam" id="results"></div>
                                     </center>
-                                </div>
+                                </div> -->
                                 <div class="col">
                                     <input type="hidden" name="jam_absen" value="{{ date('H:i') }}">
                                     <input type="hidden" name="foto_jam_absen" class="image-tag">
@@ -156,7 +156,7 @@
                 </div>
                 <br><br>
 
-                <script type="text/javascript" src="{{ url('webcamjs/webcam.min.js') }}"></script>
+                <!-- <script type="text/javascript" src="{{ url('webcamjs/webcam.min.js') }}"></script>
                 <script language="JavaScript">
                 Webcam.set({
                     width: 240,
@@ -176,7 +176,7 @@
                         '<img src="'+data_uri+'"/>';
                     } );
                 }
-                </script>
+                </script> -->
 
             @elseif($skjampul == null)
             <br>
@@ -187,12 +187,12 @@
                         @csrf
                         <div class="form-row">
                             <div class="col"></div>
-                            <div class="col">
+                            <!-- <div class="col">
                                 <center>
                                     <h2>Absen Pulang: </h2>
                                     <div class="webcam" id="results"></div>
                                 </center>
-                            </div>
+                            </div> -->
                             <div class="col">
                                 <input type="hidden" name="jam_pulang" value="{{ date('H:i') }}">
                                 <input type="hidden" name="foto_jam_pulang" class="image-tag">
@@ -212,7 +212,7 @@
             </div>
             <br><br>
 
-            <script type="text/javascript" src="{{ url('webcamjs/webcam.min.js') }}"></script>
+            <!-- <script type="text/javascript" src="{{ url('webcamjs/webcam.min.js') }}"></script>
             <script language="JavaScript">
             Webcam.set({
                 width: 240,
@@ -232,7 +232,7 @@
                     '<img src="'+data_uri+'"/>';
                 } );
             }
-            </script>
+            </script> -->
 
             @else
             <br>
