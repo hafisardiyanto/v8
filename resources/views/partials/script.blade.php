@@ -258,20 +258,81 @@
 <script src="{{ url('https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js') }}"></script>
 
 <script>
-    getLocation();
-    function getLocation() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-      } else {
-        x.innerHTML = "Geolocation is not supported by this browser.";
-      }
-    }
-    function showPosition(position) {
-    
-    $('#lat').val(position.coords.latitude);
-    $('#lat2').val(position.coords.latitude);
-    $('#long').val(position.coords.longitude);
-    $('#long2').val(position.coords.longitude);
+    // Geolocation on page load (for absen page lat2/long2 fields)
+    (function() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                $('#lat2').val(position.coords.latitude);
+                $('#long2').val(position.coords.longitude);
+            }, function() {}, {timeout: 5000});
+        }
+    })();
+
+    // Function for "Ambil Lokasi Saat Ini" button on lokasi page
+    function ambilLokasiDanSubmit() {
+        var btn = document.getElementById('btn-ambil-lokasi');
+        var status = document.getElementById('lokasi-status');
+        
+        if (!btn) return;
+
+        // Show loading state
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Mengambil lokasi...';
+        if (status) {
+            status.style.display = 'block';
+            status.innerHTML = 'Mohon tunggu, sedang mengambil lokasi GPS...';
+        }
+
+        function submitWithCoords(lat, lng) {
+            document.getElementById('lat').value = lat;
+            document.getElementById('long').value = lng;
+            if (status) {
+                status.innerHTML = '<span class="text-success">Lokasi ditemukan! (' + lat.toFixed(6) + ', ' + lng.toFixed(6) + '). Mengirim...</span>';
+            }
+            document.getElementById('form-ambil-lokasi').submit();
+        }
+
+        function fallbackToIP() {
+            if (status) {
+                status.innerHTML = 'GPS gagal, mencoba via IP address...';
+            }
+            fetch('https://ipapi.co/json/')
+                .then(function(response) { return response.json(); })
+                .then(function(data) {
+                    if (data.latitude && data.longitude) {
+                        submitWithCoords(data.latitude, data.longitude);
+                    } else {
+                        showError('Tidak dapat mengambil lokasi dari IP.');
+                    }
+                })
+                .catch(function() {
+                    showError('Gagal mengambil lokasi. Silakan isi manual.');
+                });
+        }
+
+        function showError(msg) {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fa fa-map-marker-alt"></i> Ambil Lokasi Saat Ini';
+            if (status) {
+                status.innerHTML = '<span class="text-danger">' + msg + '</span>';
+            }
+        }
+
+        // Try GPS first
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                function(position) {
+                    submitWithCoords(position.coords.latitude, position.coords.longitude);
+                },
+                function(error) {
+                    console.log('Geolocation error:', error.message);
+                    fallbackToIP();
+                },
+                { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+            );
+        } else {
+            fallbackToIP();
+        }
     }
 </script>
 

@@ -37,14 +37,17 @@
         </div>
         <div class="card card-outline card-primary col-lg-5">
             <div class="p-4">
-                <form method="post" action="{{ url('/lokasi-kantor/'.$lokasi->id) }}">
+                <form method="post" action="{{ url('/lokasi-kantor/'.$lokasi->id) }}" id="form-ambil-lokasi">
                     @method('put')
                     @csrf
                         <input type="hidden" name="lat_kantor" id="lat">
                         <input type="hidden" name="long_kantor" id="long">
                         <br><br><br>
                         <center>
-                            <button type="submit" class="btn btn-success"><i class="fa fa-map-marker-alt"></i> Ambil Lokasi Saat Ini</button>
+                            <button type="button" id="btn-ambil-lokasi" class="btn btn-success" onclick="ambilLokasiDanSubmit()">
+                                <i class="fa fa-map-marker-alt"></i> Ambil Lokasi Saat Ini
+                            </button>
+                            <p id="lokasi-status" class="mt-2 text-muted" style="display:none;"></p>
                         </center>
                   </form>
             </div>
