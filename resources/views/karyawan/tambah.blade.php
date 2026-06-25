@@ -308,6 +308,40 @@
                             @enderror
                         </div>
                     </div>
+                    <br>
+                    <div class="form-row">
+                        <div class="col">
+                            <label for="gaji_pokok">Gaji Pokok <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control @error('gaji_pokok') is-invalid @enderror" id="gaji_pokok" name="gaji_pokok" value="{{ old('gaji_pokok') }}">
+                            @error('gaji_pokok')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                        <div class="col">
+                            <label for="tunjangan">Tunjangan</label>
+                            <input type="number" class="form-control @error('tunjangan') is-invalid @enderror" id="tunjangan" name="tunjangan" value="{{ old('tunjangan') }}">
+                            @error('tunjangan')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="form-row">
+                        <div class="col">
+                            <label for="bonus">Bonus</label>
+                            <input type="number" class="form-control @error('bonus') is-invalid @enderror" id="bonus" name="bonus" value="{{ old('bonus') }}">
+                            @error('bonus')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                    </div>
 
                     <br>
                     <button type="submit" class="btn btn-primary float-right">Submit</button>
