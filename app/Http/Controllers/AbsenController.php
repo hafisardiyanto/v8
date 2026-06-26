@@ -75,17 +75,17 @@ class AbsenController extends Controller
             Alert::error('Diluar Jangkauan', 'Lokasi Anda Diluar Radius Kantor');
             return redirect('/absen');
         } else {
-            $foto_jam_absen = $request["foto_jam_absen"];
+            // $foto_jam_absen = $request["foto_jam_absen"];
 
-            $image_parts = explode(";base64,", $foto_jam_absen);
+            // $image_parts = explode(";base64,", $foto_jam_absen);
     
             $image_base64 = base64_decode($image_parts[1]);
-            $fileName = 'foto_jam_absen/' . uniqid() . '.png';
+            // $fileName = 'foto_jam_absen/' . uniqid() . '.png';
     
-            Storage::put($fileName, $image_base64);
+            // Storage::put($fileName, $image_base64);
     
     
-            $request["foto_jam_absen"] = $fileName;
+            // $request["foto_jam_absen"] = $fileName;
     
             $request["status_absen"] = "Masuk";
     
